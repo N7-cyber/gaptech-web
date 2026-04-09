@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import GaptechLogo from './assets/logo_gaptech.png';
+import KopiImg from './assets/kopi.png';
+import FotografiImg from './assets/fotografi.png';
+import SaasImg from './assets/saas.png';
+import gaming from './assets/gaming.png';
+import deepcleaning from './assets/deepcleaning.jpeg';
+import boolean from './assets/boolean.png';
+
 import { 
   Sun, Moon, Menu, X, Cpu, Code, Lightbulb, 
   CheckCircle2, ChevronDown, Wrench, Smartphone, Globe, 
@@ -30,9 +37,49 @@ export default function App() {
   const [isWebModalOpen, setIsWebModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState("");
 
+  const formLinks = {
+    'Gap-Fix': 'https://docs.google.com/forms/d/e/1FAIpQLSfpFYDihnLjTl76bIfZkphVmKfdqFqiISWSyQwa9t-Y3cIfPQ/viewform?usp=publish-editor',
+    'Gap-Dev': 'https://docs.google.com/forms/d/e/1FAIpQLScyaeicN0CYr8pQzORxKqg_wLhlOit9dQcr-Xesd-f6mFE_vg/viewform?usp=publish-editor',
+    'Gap-Consult': 'https://docs.google.com/forms/d/e/1FAIpQLSc1BGPyjZqL_1vQEDV6Vx5IO_nTsYnN7X9FNCAob5IHDnVSOg/viewform?usp=publish-editor',
+  };
+
+  const serviceDescriptions = {
+    'Gap-Fix': 'Karena setiap layanan Gap-Fix itu unik, harga akan disesuaikan dengan kondisi perangkat dan kebutuhan perbaikan Anda.',
+    'Gap-Dev': 'Karena setiap proyek Gap-Dev itu unik, harga akan disesuaikan dengan fitur dan desain website yang kamu butuhkan.',
+    'Gap-Consult': 'Karena setiap layanan Gap-Consult itu unik, harga akan disesuaikan dengan ruang lingkup dan rencana strategis digital Anda.',
+  };
+
+  const serviceInstructions = {
+    'Gap-Fix': 'Yuk, isi detail perbaikan perangkat Anda di form berikut agar kami bisa memberikan estimasi harga terbaik.',
+    'Gap-Dev': 'Yuk, isi spesifikasi website impianmu di form berikut agar kami bisa memberikan estimasi harga terbaik.',
+    'Gap-Consult': 'Yuk, jelaskan kebutuhan konsultasi digital Anda di form berikut agar kami bisa memberikan estimasi harga terbaik.',
+  };
+
   const closeWebModal = () => {
     setIsWebModalOpen(false);
     setSelectedService("");
+  };
+
+  const [contactName, setContactName] = useState('');
+  const [contactContact, setContactContact] = useState('');
+  const [contactService, setContactService] = useState('Servis Hardware (Gap-Fix)');
+  const [contactMessage, setContactMessage] = useState('');
+  const [contactMethod, setContactMethod] = useState('whatsapp');
+
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+
+    const subject = `Pesan Gaptech - ${contactService}`;
+    const body = `Nama: ${contactName}\nKontak: ${contactContact}\nLayanan: ${contactService}\n\nPesan:\n${contactMessage}`;
+
+    if (contactMethod === 'email') {
+      const mailto = `mailto:contact.gaptech@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.open(mailto, '_blank');
+      return;
+    }
+
+    const waText = `Halo Gaptech,%0A%0ANama: ${encodeURIComponent(contactName)}%0AKontak: ${encodeURIComponent(contactContact)}%0ALayanan: ${encodeURIComponent(contactService)}%0A%0APesan:%0A${encodeURIComponent(contactMessage)}`;
+    window.open(`https://wa.me/62887436421551?text=${waText}`, '_blank');
   };
 
   // Toggle Dark Mode
@@ -227,26 +274,24 @@ export default function App() {
                 ))}
               </div>
             </div>
-            
-            <motion.div variants={fadeUp} className="relative aspect-square md:aspect-[4/3] lg:aspect-square rounded-3xl overflow-hidden border border-white/10">
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-600 to-green-400 opacity-20 z-10" />
-              {/* Abstract Code/Tech visual placeholder */}
-              <div className={`w-full h-full flex items-center justify-center p-8 ${isDarkMode ? 'bg-[#1E293B]' : 'bg-slate-100'}`}>
-                <div className="w-full h-full rounded-2xl border border-white/10 bg-black/40 shadow-2xl overflow-hidden flex flex-col relative">
-                   <div className="h-8 bg-black/60 flex items-center px-4 gap-2 border-b border-white/10">
-                     <div className="w-3 h-3 rounded-full bg-red-500"/>
-                     <div className="w-3 h-3 rounded-full bg-yellow-500"/>
-                     <div className="w-3 h-3 rounded-full bg-green-500"/>
-                   </div>
-                   <div className="p-6 font-mono text-sm sm:text-base text-green-400 opacity-70 flex-1 flex flex-col gap-2">
-                     <p>{`> Initializing Gaptech Systems...`}</p>
-                     <p>{`> Loading hardware diagnostics... [OK]`}</p>
-                     <p>{`> Deploying web solutions... [OK]`}</p>
-                     <p className="text-blue-400">{`> const mission = "Empower users";`}</p>
-                     <p className="text-blue-400">{`> execute(mission);`}</p>
-                     <p className="mt-4 animate-pulse">_</p>
-                   </div>
-                </div>
+
+            <motion.div variants={fadeUp} className={`rounded-3xl p-8 ${isDarkMode ? 'bg-[#111827] border border-white/10' : 'bg-white border-slate-200'} shadow-xl`}> 
+              <span className="inline-flex items-center rounded-full bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-500 mb-4">Kenapa Gaptech?</span>
+              <h3 className="text-3xl font-bold mb-4">Solusi lengkap, cepat, dan jelas</h3>
+              <p className={`mb-6 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                Kami bantu kamu dari perbaikan hardware sampai pengembangan website dan konsultasi digital — tanpa istilah rumit dan dengan layanan yang mudah diikuti.
+              </p>
+              <div className="space-y-4">
+                {[
+                  { title: 'Respons Cepat', detail: 'Jawaban dan tindakan cepat untuk kebutuhan teknologi Anda.' },
+                  { title: 'Support Friendly', detail: 'Tim kami siap menjelaskan langkah teknis dengan bahasa sederhana.' },
+                  { title: 'Layanan Terintegrasi', detail: 'Gap-Fix, Gap-Dev, dan Gap-Consult bekerja saling melengkapi.' }
+                ].map((item, i) => (
+                  <div key={i} className={`rounded-2xl border p-4 ${isDarkMode ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-slate-50'}`}>
+                    <h4 className="font-semibold text-base mb-1">{item.title}</h4>
+                    <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>{item.detail}</p>
+                  </div>
+                ))}
               </div>
             </motion.div>
           </motion.div>
@@ -271,7 +316,7 @@ export default function App() {
                 <Wrench className="w-7 h-7 text-blue-500" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Gap-Fix</h3>
-              <p className={`mb-6 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Solusi Perangkat Keras. Perbaiki perangkat Anda agar kembali optimal.</p>
+              <p className={`mb-6 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Solusi Hardware Terpercaya. Servis dan perbaikan perangkat keras untuk performa maksimal.</p>
               <ul className="space-y-3 mb-8">
                 {['Servis Laptop & PC', 'Ganti Sparepart', 'Deep Cleaning', 'Rakit PC Custom'].map((item, i) => (
                   <li key={i} className="flex items-center gap-3">
@@ -314,7 +359,7 @@ export default function App() {
                 <Lightbulb className="w-7 h-7 text-green-500" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Gap-Consult</h3>
-              <p className={`mb-6 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Konsultan Digital. Panduan tepat untuk kebutuhan teknologi Anda.</p>
+              <p className={`mb-6 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Konsultasi Teknologi Pintar. Panduan ahli untuk semua kebutuhan digital Anda.</p>
               <ul className="space-y-3 mb-8">
                 {['Rekomendasi Beli Laptop', 'Konsultasi Digitalisasi', 'Edukasi Teknologi', 'Perencanaan Arsitektur Web'].map((item, i) => (
                   <li key={i} className="flex items-center gap-3">
@@ -382,25 +427,34 @@ export default function App() {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: "E-Commerce UMKM Kopi", category: "Web Development", imgGradient: "from-orange-500 to-amber-600" },
-              { title: "Custom Build PC Content Creator", category: "Hardware (Gap-Fix)", imgGradient: "from-purple-600 to-blue-600" },
-              { title: "Landing Page Startup SaaS", category: "Web Development", imgGradient: "from-blue-500 to-cyan-400" },
-              { title: "Deep Cleaning & Upgrade SSD", category: "Hardware (Gap-Fix)", imgGradient: "from-slate-600 to-slate-800" },
-              { title: "Website Portofolio Fotografer", category: "Web Development", imgGradient: "from-pink-500 to-rose-500" },
-              { title: "Sistem Manajemen Inventori", category: "Software Custom", imgGradient: "from-green-500 to-emerald-600" },
+              { title: "E-Commerce UMKM Kopi", category: "Web Development", image: KopiImg, link: "https://aroma-nusantara.vercel.app/", fallbackGradient: "from-orange-500 to-amber-600" },
+              { title: "Custom Build PC Content Gaming", category: "Hardware (Gap-Fix)", image: gaming, link: "https://docs.google.com/spreadsheets/d/1xY6ipl9nOvpziVGJR9bCdgpZgYNuXuFP9SVUacmdLjo/edit?usp=sharing", fallbackGradient: "from-purple-600 to-blue-600" },
+              { title: "Landing Page Startup SaaS", category: "Web Development", image: SaasImg, link: "https://startup-saa-s.vercel.app/", fallbackGradient: "from-blue-500 to-cyan-400" },
+              { title: "Deep Cleaning & Upgrade SSD", category: "Hardware (Gap-Fix)", image: deepcleaning, link: "https://youtu.be/q0wogZXpbMY", fallbackGradient: "from-slate-600 to-slate-800" },
+              { title: "Website Portofolio Fotografer", category: "Web Development", image: FotografiImg, link: "https://aurelius-cinematic-photography-stud.vercel.app/", fallbackGradient: "from-pink-500 to-rose-500" },
+              { title: "Digital Circuit Logic Simulator", category: "Logic Simulator", image: boolean, link: "https://kmap-if-24-b-kelompok3.vercel.app/", fallbackGradient: "from-green-500 to-emerald-600" },
             ].map((item, i) => (
               <motion.div key={i} initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                className={`group rounded-3xl overflow-hidden border cursor-pointer ${isDarkMode ? 'border-white/10 bg-[#1E293B]' : 'border-slate-200 bg-white'}`}
+                className={`group rounded-3xl overflow-hidden border ${isDarkMode ? 'border-white/10 bg-[#1E293B]' : 'border-slate-200 bg-white'}`}
               >
-                {/* Image Placeholder with Gradient */}
-                <div className={`aspect-video w-full bg-gradient-to-br ${item.imgGradient} relative overflow-hidden`}>
-                   <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                {/* Bagian Gambar / Gradient Placeholder */}
+                <div className={`aspect-video w-full relative overflow-hidden ${item.image ? '' : `bg-gradient-to-br ${item.fallbackGradient}`}`}>
+                   
+                   {/* Jika ada gambar, tampilkan gambar */}
+                   {item.image && (
+                     <img src={item.image} alt={item.title} className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                   )}
+                   
+                   {/* Overlay Gelap agar tombol terbaca */}
+                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
+                   
+                   {/* Tombol Lihat Detail (Sekarang jadi Link) */}
                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-medium border border-white/30">
+                      <a href={item.link} target={item.link !== '#' ? "_blank" : "_self"} rel="noreferrer" className="px-5 py-2.5 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-semibold border border-white/30 hover:bg-white/40 hover:scale-105 transition-all shadow-lg">
                         Lihat Detail
-                      </span>
+                      </a>
                    </div>
                 </div>
                 <div className="p-6">
@@ -523,20 +577,36 @@ export default function App() {
 
               {/* Contact Form */}
               <div className="p-10 md:p-16">
-                <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                <form className="space-y-6" onSubmit={handleContactSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-sm font-medium">Nama Lengkap</label>
-                      <input type="text" className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${isDarkMode ? 'bg-[#1E293B] border-slate-700 focus:bg-[#0F172A]' : 'bg-slate-50 border-slate-200 focus:bg-white'}`} placeholder="Budi Santoso" />
+                      <input
+                        type="text"
+                        value={contactName}
+                        onChange={(e) => setContactName(e.target.value)}
+                        className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${isDarkMode ? 'bg-[#1E293B] border-slate-700 focus:bg-[#0F172A]' : 'bg-slate-50 border-slate-200 focus:bg-white'}`}
+                        placeholder="Budi Santoso"
+                      />
                     </div>
                     <div className="space-y-2">
                       <label className="text-sm font-medium">Email / WhatsApp</label>
-                      <input type="text" className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${isDarkMode ? 'bg-[#1E293B] border-slate-700 focus:bg-[#0F172A]' : 'bg-slate-50 border-slate-200 focus:bg-white'}`} placeholder="budi@email.com" />
+                      <input
+                        type="text"
+                        value={contactContact}
+                        onChange={(e) => setContactContact(e.target.value)}
+                        className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${isDarkMode ? 'bg-[#1E293B] border-slate-700 focus:bg-[#0F172A]' : 'bg-slate-50 border-slate-200 focus:bg-white'}`}
+                        placeholder="budi@email.com"
+                      />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Layanan yang dibutuhkan</label>
-                    <select className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${isDarkMode ? 'bg-[#1E293B] border-slate-700 focus:bg-[#0F172A]' : 'bg-slate-50 border-slate-200 focus:bg-white'}`}>
+                    <select
+                      value={contactService}
+                      onChange={(e) => setContactService(e.target.value)}
+                      className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${isDarkMode ? 'bg-[#1E293B] border-slate-700 focus:bg-[#0F172A]' : 'bg-slate-50 border-slate-200 focus:bg-white'}`}
+                    >
                       <option>Servis Hardware (Gap-Fix)</option>
                       <option>Pembuatan Website (Gap-Dev)</option>
                       <option>Konsultasi (Gap-Consult)</option>
@@ -545,7 +615,32 @@ export default function App() {
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Pesan</label>
-                    <textarea rows="4" className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${isDarkMode ? 'bg-[#1E293B] border-slate-700 focus:bg-[#0F172A]' : 'bg-slate-50 border-slate-200 focus:bg-white'}`} placeholder="Ceritakan detail masalah atau kebutuhan Anda..."></textarea>
+                    <textarea
+                      rows="4"
+                      value={contactMessage}
+                      onChange={(e) => setContactMessage(e.target.value)}
+                      className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${isDarkMode ? 'bg-[#1E293B] border-slate-700 focus:bg-[#0F172A]' : 'bg-slate-50 border-slate-200 focus:bg-white'}`}
+                      placeholder="Ceritakan detail masalah atau kebutuhan Anda..."
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Metode Pengiriman</label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setContactMethod('whatsapp')}
+                        className={`py-3 rounded-xl font-semibold transition-all ${contactMethod === 'whatsapp' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'} ${isDarkMode ? 'bg-opacity-90' : ''}`}
+                      >
+                        WhatsApp
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setContactMethod('email')}
+                        className={`py-3 rounded-xl font-semibold transition-all ${contactMethod === 'email' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'} ${isDarkMode ? 'bg-opacity-90' : ''}`}
+                      >
+                        Email
+                      </button>
+                    </div>
                   </div>
                   <button className="w-full py-4 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors">
                     Kirim Pesan
@@ -642,14 +737,13 @@ export default function App() {
               </span>
               <h3 className="text-2xl font-bold mb-3">Estimasi Harga {selectedService || 'Layanan'}</h3>
               <p className={`mb-6 leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                Karena setiap layanan itu unik, harga akan disesuaikan dengan tingkat kesulitan dan fitur yang kamu butuhkan. 
+                {serviceDescriptions[selectedService] || serviceDescriptions['Gap-Dev']}
                 <br/><br/>
-                Yuk, isi spesifikasi website impianmu di form berikut agar kami bisa memberikan estimasi harga terbaik!
+                {serviceInstructions[selectedService] || serviceInstructions['Gap-Dev']}
               </p>
 
               <div className="space-y-3">
-                {/* GANTI LINK "HREF" DI BAWAH INI DENGAN LINK GOOGLE FORM KAMU NANTI */}
-                <a href="https://forms.gle/link-google-form-kamu-disini" target="_blank" rel="noreferrer" onClick={closeWebModal} className="w-full flex items-center justify-center gap-2 py-4 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20">
+                <a href={formLinks[selectedService] || formLinks['Gap-Dev']} target="_blank" rel="noreferrer" onClick={closeWebModal} className="w-full flex items-center justify-center gap-2 py-4 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20">
                   📝 Isi Form Spesifikasi
                 </a>
                 
